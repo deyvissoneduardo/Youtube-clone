@@ -12,9 +12,7 @@ class _LibraryLayoutState extends State<LibraryLayout> {
       child: Center(
         child: Text(
           "Biblioteca",
-          style: TextStyle(
-            fontSize: 25
-          ),
+          style: TextStyle(fontSize: 25),
         ),
       ),
     );

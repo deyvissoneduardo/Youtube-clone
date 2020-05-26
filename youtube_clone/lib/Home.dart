@@ -15,7 +15,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Widget> layouts = [
       InitLayout(), // tela inicio
       AcessLayout(), // tela em alta
