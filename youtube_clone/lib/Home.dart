@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtubeclone/CustonSearchDelegate.dart';
 import 'package:youtubeclone/layouts/AcessLayout.dart';
 import 'package:youtubeclone/layouts/InitLayout.dart';
 import 'package:youtubeclone/layouts/LibraryLayout.dart';
@@ -32,21 +33,26 @@ class _HomeState extends State<Home> {
         ),
         actions: <Widget>[
           IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () async {
+              String res = await showSearch(context: context, delegate: CustonSearchDelegate());
+              print("resultado: digitado " + res );
+            },
+          ),
+          /*
+          IconButton(
             icon: Icon(Icons.videocam),
             onPressed: () {
               print('vidoe cam');
             },
           ),
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                print('search');
-              }),
+
           IconButton(
               icon: Icon(Icons.account_circle),
               onPressed: () {
                 print('account_circle');
               })
+          */
         ],
       ),
       body: Container(
