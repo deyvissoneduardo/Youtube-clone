@@ -21,7 +21,7 @@ class CustonSearchDelegate extends SearchDelegate<String> {
         icon: Icon(Icons.arrow_back),
         // fecha tela de pesquisa
         onPressed: () {
-          close(context, null);
+          close(context, '');
         });
   }
 

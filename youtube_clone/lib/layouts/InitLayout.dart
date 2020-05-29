@@ -3,20 +3,25 @@ import 'package:youtubeclone/api/Api.dart';
 import 'package:youtubeclone/model/Video.dart';
 
 class InitLayout extends StatefulWidget {
+
+  /* recebendo dados da pesquisa*/
+  String pesquisa;
+  InitLayout( this.pesquisa );
+
   @override
   _InitLayoutState createState() => _InitLayoutState();
 }
 
 class _InitLayoutState extends State<InitLayout> {
-  _listVideos() {
+  _listVideos(String pesquisa) {
     Api api = Api();
-    return api.pesquisar("");
+    return api.pesquisar( pesquisa );
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Video>>(
-      future: _listVideos(),
+      future: _listVideos( widget.pesquisa ),
       builder: (contex, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:

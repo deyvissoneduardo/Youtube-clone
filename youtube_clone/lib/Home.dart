@@ -13,11 +13,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var _indiceAtual = 0;
-
+  String _result = '';
   @override
   Widget build(BuildContext context) {
+
     List<Widget> layouts = [
-      InitLayout(), // tela inicio
+      InitLayout( _result ), // tela inicio
       AcessLayout(), // tela em alta
       RegisteLayout(), // tela inscricao
       LibraryLayout(), // tela biblioteca
@@ -35,8 +36,11 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () async {
-              String res = await showSearch(context: context, delegate: CustonSearchDelegate());
-              print("resultado: digitado " + res );
+              String pesquisa = await showSearch(context: context, delegate: CustonSearchDelegate());
+              setState(() {
+                _result = pesquisa;
+              });
+              print("resultado: digitado " + pesquisa );
             },
           ),
           /*
