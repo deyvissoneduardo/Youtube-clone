@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_youtube/flutter_youtube.dart';
 import 'package:youtubeclone/api/Api.dart';
 import 'package:youtubeclone/model/Video.dart';
 
 class InitLayout extends StatefulWidget {
-
   /* recebendo dados da pesquisa*/
   String pesquisa;
-  InitLayout( this.pesquisa );
+
+  InitLayout(this.pesquisa);
 
   @override
   _InitLayoutState createState() => _InitLayoutState();
@@ -15,13 +16,13 @@ class InitLayout extends StatefulWidget {
 class _InitLayoutState extends State<InitLayout> {
   _listVideos(String pesquisa) {
     Api api = Api();
-    return api.pesquisar( pesquisa );
+    return api.pesquisar(pesquisa);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Video>>(
-      future: _listVideos( widget.pesquisa ),
+      future: _listVideos(widget.pesquisa),
       builder: (contex, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -37,21 +38,30 @@ class _InitLayoutState extends State<InitLayout> {
                   itemBuilder: (context, index) {
                     List<Video> videos = snapshot.data;
                     Video video = videos[index];
-
-                    return Column(
-                      children: <Widget>[
-                        Container(
-                          height: 200,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(video.image))),
-                        ),
-                        ListTile(
-                          title: Text(video.title),
-                          subtitle: Text(video.channel),
-                        )
-                      ],
+                    return GestureDetector(
+                      onTap: () {
+                        FlutterYoutube.playYoutubeVideoById(
+                            apiKey: CHAVE_API_YOUTUBE,
+                            videoId: video.id,
+                           // fullScreen: true,
+                            autoPlay: true,
+                        );
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            height: 200,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(video.image))),
+                          ),
+                          ListTile(
+                            title: Text(video.title),
+                            subtitle: Text(video.channel),
+                          )
+                        ],
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) => Divider(
