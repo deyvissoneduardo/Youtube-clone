@@ -6,10 +6,14 @@ class CustonSearchDelegate extends SearchDelegate<String> {
    */
   @override
   List<Widget> buildActions(BuildContext context) {
-    return [IconButton(icon: Icon(Icons.clear), onPressed: () {
-      // limpa campo de pesquisa
-      query = '';
-    })];
+    return [
+      IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            // limpa campo de pesquisa
+            query = '';
+          })
+    ];
   }
 
   /*
@@ -41,6 +45,24 @@ class CustonSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     // print('resulatoo da presuisa' + query);
-    return Container();
+    List<String> list = List();
+    if (query.isNotEmpty) {
+      list = ["Andriod", "Andriod Navegação", "IOS", "Jogos"]
+          .where((text) => text.toLowerCase().startsWith(query.toLowerCase())).toList();
+      return ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: (){
+                close(context, list[index] );
+              },
+              title: Text(list[index]),
+            );
+          });
+    } else {
+      return Center(
+        child: Text("Nenhuma pesquisa realizada"),
+      );
+    }
   }
 }
